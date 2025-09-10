@@ -17,6 +17,11 @@ const closeModal = (modal) => {
   modal.classList.remove("popup_visible");
 };
 
+const renderTodo = (item) => {
+  const todo = generateTodo(item);
+  todosList.append(todo);
+};
+
 // The logic in this function should all be handled in the Todo class.
 const generateTodo = (data) => {
   const todo = new Todo(data, "#todo-template");
@@ -44,15 +49,15 @@ addTodoForm.addEventListener("submit", (evt) => {
 
   const id = uuidv4();
   const todoData = { name, date, id };
-  const todo = generateTodo(todoData);
-  todosList.append(todo);
+
+  renderTodo(todoData);
+
   closeModal(addTodoPopup);
   addTodoFormValidator.resetValidation();
 });
 
 initialTodos.forEach((item) => {
-  const todo = generateTodo(item);
-  todosList.append(todo);
+  renderTodo(item);
 });
 
 const addTodoFormValidator = new FormValidator(validationConfig, addTodoForm);
