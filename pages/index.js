@@ -26,14 +26,6 @@ const addTodoPopup = new PopupWithForm({
   handleFormSubmit: () => {},
 });
 
-const openModal = (modal) => {
-  modal.classList.add("popup_visible");
-};
-
-const closeModal = (modal) => {
-  modal.classList.remove("popup_visible");
-};
-
 const renderTodo = (item) => {
   const todo = generateTodo(item);
   todosList.append(todo);
@@ -47,12 +39,10 @@ const generateTodo = (data) => {
   return todoElement;
 };
 
-addTodoButton.addEventListener("click", () => {
-  openModal(addTodoPopupEl);
-});
+addTodoPopup.setEventListeners();
 
-addTodoCloseBtn.addEventListener("click", () => {
-  closeModal(addTodoPopupEl);
+addTodoButton.addEventListener("click", () => {
+  addTodoPopup.open();
 });
 
 addTodoForm.addEventListener("submit", (evt) => {
@@ -69,7 +59,7 @@ addTodoForm.addEventListener("submit", (evt) => {
 
   renderTodo(todoData);
 
-  closeModal(addTodoPopupEl);
+  addTodoPopup.close();
   addTodoFormValidator.resetValidation();
 });
 
