@@ -28,7 +28,6 @@ class Popup {
 
     this._popupElement.addEventListener("mousedown", (evt) => {
       if (evt.target === this._popupElement) {
-        console.log("mousedown clicked");
         this.close();
       }
     });

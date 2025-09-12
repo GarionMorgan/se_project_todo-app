@@ -50,9 +50,9 @@ function handleCheck(completed) {
 }
 
 function handleDelete(completed) {
+  todoCounter.updateTotal(false);
   if (completed) {
     todoCounter.updateCompleted(false);
-    todoCounter.updateTotal(false);
   }
 }
 
@@ -75,7 +75,7 @@ addTodoButton.addEventListener("click", () => {
   addTodoPopup.open();
 });
 
-todosSection.renderItems(initialTodos);
+todosSection.renderItems();
 
 const addTodoFormValidator = new FormValidator(validationConfig, addTodoForm);
 addTodoFormValidator.enableValidation();

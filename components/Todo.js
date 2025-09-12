@@ -13,12 +13,12 @@ class Todo {
     });
 
     this._todoCheckboxEl.addEventListener("change", () => {
-      this._toggleComeletion();
+      this._toggleCompletion();
       this._handleCheck(this._data.completed);
     });
   }
 
-  _toggleComeletion = () => {
+  _toggleCompletion = () => {
     this._data.completed = !this._data.completed;
   };
 
