@@ -19,6 +19,7 @@ const todoCounter = new TodoCounter(initialTodos, ".counter__text");
 const todosSection = new Section({
   items: initialTodos,
   renderer: (item) => {
+    console.log("item in renderer:", item);
     renderTodo(item);
   },
   containerSelector: ".todos__list",
@@ -37,21 +38,35 @@ const addTodoPopup = new PopupWithForm({
     const id = uuidv4();
     const todoData = { name, date, id };
 
-    renderTodo(todoData);
+    todosSection.addItem(generateTodo(todoData));
+    todoCounter.updateTotal(true);
 
     addTodoPopup.close();
     addTodoFormValidator.resetValidation();
   },
 });
 
+function handleCheck(completed) {
+  todoCounter.updateCompleted(completed);
+}
+
+function handleDelete(completed) {
+  if (completed) {
+    todoCounter.updateCompleted(false);
+    todoCounter.updateTotal(false);
+  }
+}
+
 const renderTodo = (item) => {
   const todo = generateTodo(item);
-  todosList.append(todo);
+  console.log("Generated todo:", todo);
+  todosSection.addItem(todo);
+  // todosList.append(todo);
 };
 
 // The logic in this function should all be handled in the Todo class.
 const generateTodo = (data) => {
-  const todo = new Todo(data, "#todo-template");
+  const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
   const todoElement = todo.getView();
 
   return todoElement;
@@ -63,9 +78,7 @@ addTodoButton.addEventListener("click", () => {
   addTodoPopup.open();
 });
 
-initialTodos.forEach((item) => {
-  renderTodo(item);
-});
+todosSection.renderItems(initialTodos);
 
 const addTodoFormValidator = new FormValidator(validationConfig, addTodoForm);
 addTodoFormValidator.enableValidation();

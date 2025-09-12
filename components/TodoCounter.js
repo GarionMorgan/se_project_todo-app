@@ -8,14 +8,14 @@ class TodoCounter {
     console.log(this._element);
     console.log(this._completed);
     console.log(this._total);
+    this._updateText();
   }
 
   // Call this when a checkbox is clicked, and when a completed
   // to-do is deleted.
   updateCompleted = (increment) => {
-    // if increment is true, add 1 to this._completed. Otherwise,
-    // subtract 1. In either case, call the method to update
-    // the text content.
+    this._completed += increment ? 1 : -1;
+    this._updateText();
   };
 
   // Call this when a to-do is deleted, or when a to-do is
@@ -24,6 +24,8 @@ class TodoCounter {
     // if increment is true, add 1 to this._total. Otherwise,
     // subtract 1. In either case, call the method to update the
     // text content.
+    this._total += increment ? 1 : -1;
+    this._updateText();
   };
 
   // Call the method to update the text content
