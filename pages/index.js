@@ -19,7 +19,6 @@ const todoCounter = new TodoCounter(initialTodos, ".counter__text");
 const todosSection = new Section({
   items: initialTodos,
   renderer: (item) => {
-    console.log("item in renderer:", item);
     renderTodo(item);
   },
   containerSelector: ".todos__list",
@@ -59,9 +58,7 @@ function handleDelete(completed) {
 
 const renderTodo = (item) => {
   const todo = generateTodo(item);
-  console.log("Generated todo:", todo);
   todosSection.addItem(todo);
-  // todosList.append(todo);
 };
 
 // The logic in this function should all be handled in the Todo class.
